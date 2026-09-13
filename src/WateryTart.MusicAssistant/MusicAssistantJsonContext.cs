@@ -119,7 +119,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(GenreResponse))]
 [JsonSerializable(typeof(GenreOverview))]
 [JsonSerializable(typeof(GenreOverviewResponse))]
-
+[JsonSerializable(typeof(AnalysisWaveResponse))]
 
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Album>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Artist>>))]
@@ -130,6 +130,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<QueuedItem>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Recommendation>>))]
 [JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<Genre>>))]
+[JsonSerializable(typeof(ResponseBase<System.Collections.Generic.List<double>>))]
 
 [JsonSerializable(typeof(ResponseBase<StringArrayResponse>))]
 [JsonSerializable(typeof(ResponseBase<Album>))]

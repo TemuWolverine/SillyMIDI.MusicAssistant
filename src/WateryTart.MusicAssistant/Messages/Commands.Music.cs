@@ -2,6 +2,12 @@
 
 public static partial class Commands
 {
+    // Analysis
+    
+    public const string AudioAnalysisGetWaveform = "audio_analysis/wave_form";
+    public const string AudioAnalysisCoverage = "audio_analysis/coverage";
+    public const string AudioAnalysisFailures = "audio_analysis/failures";
+    public const string AudioAnalysisFailuresClear = "audio_analysis/failures/clear";
     // Provider mapping
     public const string MusicAddProviderMapping = "music/provider/add_mapping";
     public const string MusicAlbumGet = "music/albums/get";
