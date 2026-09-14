@@ -1,5 +1,6 @@
 ﻿using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Responses;
+using WateryTart.MusicAssistant.Generators.Attributes;
 
 namespace WateryTart.MusicAssistant.WsExtensions;
 
@@ -10,6 +11,18 @@ public static partial class MusicAssistantClientWsExtensions
     {
         return await SendAsync<UserResponse>(c, ClientHelpers.JustCommand(Commands.AuthMe));
     }
+
+    [ToRpc]
+    public static async Task<AuthProvidersResponse> GetAuthProvidersAsync(this MusicAssistantClientWs c)
+    {
+        var m = new Message(Commands.AuthProviders)
+        {
+            Args = new Dictionary<string, object>()
+        };
+
+        return await SendAsync<AuthProvidersResponse>(c, m);
+    }
+
     public static void GetAuthToken(this MusicAssistantClientWs c, string username, string password, Action<AuthResponse> responseHandler)
     {
         var m = new Message(Commands.AuthLogin)

@@ -155,7 +155,15 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<User>))]
 [JsonSerializable(typeof(SoundEffect))]
 [JsonSerializable(typeof(SoundEffectResponse))]
-[JsonSerializable(typeof(ResponseBase<SoundEffect>))]
+[JsonSerializable(typeof(WateryTart.MusicAssistant.Models.TaskStatus))]
+[JsonSerializable(typeof(TaskScheduleType))]
+[JsonSerializable(typeof(TaskSchedule))]
+[JsonSerializable(typeof(BackgroundTask))]
+[JsonSerializable(typeof(BackgroundTaskResponse))]
+[JsonSerializable(typeof(BackgroundTasksResponse))]
+[JsonSerializable(typeof(PartyConfig))]
+[JsonSerializable(typeof(PartyConfigResponse))]
+[JsonSerializable(typeof(BooleanResponse))]
 public partial class MusicAssistantJsonContext : JsonSerializerContext
 {
 }
