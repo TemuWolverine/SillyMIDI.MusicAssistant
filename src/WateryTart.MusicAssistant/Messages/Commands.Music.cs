@@ -2,96 +2,132 @@
 
 public static partial class Commands
 {
-    // Analysis
-    
-    public const string AudioAnalysisGetWaveform = "audio_analysis/wave_form";
-    public const string AudioAnalysisCoverage = "audio_analysis/coverage";
-    public const string AudioAnalysisFailures = "audio_analysis/failures";
-    public const string AudioAnalysisFailuresClear = "audio_analysis/failures/clear";
-    // Provider mapping
-    public const string MusicAddProviderMapping = "music/provider/add_mapping";
-    public const string MusicAlbumGet = "music/albums/get";
-    public const string MusicAlbumsCount = "music/albums/count";
-    public const string MusicAlbumLibraryItems = "music/albums/library_items";
-    public const string MusicAlbumTracks = "music/albums/album_tracks";
-    public const string MusicAlbumVersions = "music/albums/album_versions";
-
-    // Artist
-    public const string MusicArtistAlbums = "music/artists/artist_albums";
-    public const string MusicArtistGet = "music/artists/get";
-    public const string MusicArtistsCount = "music/artists/count";
-    public const string MusicArtistsGet = "music/artists/library_items";
-    public const string MusicArtistTracks = "music/artists/artist_tracks";
-
-    // Audiobooks
-    public const string MusicAudiobooksAudiobookVersions = "music/audiobooks/audiobook_versions";
-    public const string MusicAudiobooksCount = "music/audiobooks/count";
-    public const string MusicAudiobooksGet = "music/audiobooks/get";
-    public const string MusicAudiobooksLibraryItems = "music/audiobooks/library_items";
-
-    // Browse & Favourites
-    public const string MusicBrowse = "music/browse";
-    public const string MusicFavouritesAddItem = "music/favorites/add_item";
-    public const string MusicFavouritesRemoveItem = "music/favorites/remove_item";
-
-    // Genres
-    public const string MusicGenresCount = "music/genres/count";
-    public const string MusicGenresGet = "music/genres/get";
-    public const string MusicGenresLibraryItems = "music/genres/library_items";
-
-    // Library Items & Item Management
-    public const string MusicGetLibraryItem = "music/get_library_item";
-    public const string MusicInProgressItems = "music/in_progress/items";
-    public const string MusicItem = "music/item";
-    public const string MusicItemByUri = "music/item/by_uri";
-    public const string MusicLibraryAddItem = "music/library/add_item";
-    public const string MusicLibraryRemoveItem = "music/library/remove_item";
-    public const string MusicMarkPlayed = "music/item/mark_played";
-    public const string MusicMarkUnplayed = "music/item/mark_unplayed";
-    public const string MusicMatchProviders = "music/provider/match_providers";
-
-    // Playlists
-    public const string MusicPlaylistsAddPlaylistTracks = "music/playlists/add_playlist_tracks";
-    public const string MusicPlaylistsCount = "music/playlists/count";
-    public const string MusicPlaylistsCreatePlaylist = "music/playlists/create_playlist";
-    public const string MusicPlaylistsLibraryItems = "music/playlists/library_items";
-    public const string MusicPlaylistsRemovePlaylistTracks = "music/playlists/remove_playlist_tracks";
-    public const string MusicPlaylistsGet = "music/playlists/get";
-    public const string MusicPlaylistsPlaylistTracks = "music/playlists/playlist_tracks";
-
-    // Podcasts
-    public const string MusicPodcastsCount = "music/podcasts/count";
-    public const string MusicPodcastsGet = "music/podcasts/get";
-    public const string MusicPodcastsLibraryItems = "music/podcasts/library_items";
-    public const string MusicPodcastsPodcastEpisode = "music/podcasts/podcast_episode";
-    public const string MusicPodcastsPodcastEpisodes = "music/podcasts/podcast_episodes";
-    public const string MusicPodcastsPodcastVersions = "music/podcasts/podcast_versions";
-
-    // Radios
-    public const string MusicRadiosCount = "music/radios/count";
-    public const string MusicRadiosGet = "music/radios/get";
-    public const string MusicRadiosLibraryItems = "music/radios/library_items";
-    public const string MusicRadiosRadioVersions = "music/radios/radio_versions";
-
-    // Recently played/added
-    public const string MusicRecentlyAddedTracks = "music/recently_added_tracks";
-    public const string MusicRecentlyPlayedItems = "music/recently_played_items";
-    public const string MusicTracksLibraryItems = "music/tracks/library_items";
-
-    // Recommendations & Refresh
-    public const string MusicRecommendations = "music/recommendations";
-    public const string MusicRefreshItem = "music/item/refresh";
-    public const string MusicRemoveProviderMapping = "music/provider/remove_mapping";
-
-    // Search & Sync
-    public const string MusicSearch = "music/search";
-    public const string MusicSync = "music/sync";
-    public const string MusicSyncTasks = "music/sync/tasks";
-    public const string MusicTrackByName = "music/tracks/by_name";
-    public const string MusicTracksCount = "music/tracks/count";
-    public const string MusicTracksTrackAlbum = "music/tracks/track_album";
-    public const string MusicTracksTrackVersions = "music/tracks/track_versions";
-
-    // Similar tracks
-    public const string MusicSimilarTracks = "music/tracks/similar_tracks";
+public const string MusicAddProviderMapping = "music/add_provider_mapping";
+public const string MusicAlbumsAlbumTracks = "music/albums/album_tracks";
+public const string MusicAlbumsAlbumVersions = "music/albums/album_versions";
+public const string MusicAlbumsCount = "music/albums/count";
+public const string MusicAlbumsGet = "music/albums/get";
+public const string MusicAlbumsGetByExternalId = "music/albums/get_by_external_id";
+public const string MusicAlbumsGetCollection = "music/albums/get_collection";
+public const string MusicAlbumsLibraryItems = "music/albums/library_items";
+public const string MusicAlbumsRemove = "music/albums/remove";
+public const string MusicAlbumsUpdate = "music/albums/update";
+public const string MusicArtistsArtistAlbums = "music/artists/artist_albums";
+public const string MusicArtistsArtistAudiobooks = "music/artists/artist_audiobooks";
+public const string MusicArtistsArtistTracks = "music/artists/artist_tracks";
+public const string MusicArtistsCount = "music/artists/count";
+public const string MusicArtistsGet = "music/artists/get";
+public const string MusicArtistsGetByExternalId = "music/artists/get_by_external_id";
+public const string MusicArtistsGetCollection = "music/artists/get_collection";
+public const string MusicArtistsLibraryArtistTypes = "music/artists/library_artist_types";
+public const string MusicArtistsLibraryItems = "music/artists/library_items";
+public const string MusicArtistsRemove = "music/artists/remove";
+public const string MusicArtistsSimilarArtists = "music/artists/similar_artists";
+public const string MusicArtistsTopAlbums = "music/artists/top_albums";
+public const string MusicArtistsTopTracks = "music/artists/top_tracks";
+public const string MusicArtistsUpdate = "music/artists/update";
+public const string MusicAudiobooksAudiobookVersions = "music/audiobooks/audiobook_versions";
+public const string MusicAudiobooksCount = "music/audiobooks/count";
+public const string MusicAudiobooksGet = "music/audiobooks/get";
+public const string MusicAudiobooksGetByExternalId = "music/audiobooks/get_by_external_id";
+public const string MusicAudiobooksGetCollection = "music/audiobooks/get_collection";
+public const string MusicAudiobooksLibraryItems = "music/audiobooks/library_items";
+public const string MusicAudiobooksRemove = "music/audiobooks/remove";
+public const string MusicAudiobooksUpdate = "music/audiobooks/update";
+public const string MusicBrowse = "music/browse";
+public const string MusicFavoritesAddItem = "music/favorites/add_item";
+public const string MusicFavoritesRemoveItem = "music/favorites/remove_item";
+public const string MusicGenresAdd = "music/genres/add";
+public const string MusicGenresAddAlias = "music/genres/add_alias";
+public const string MusicGenresAddMediaMapping = "music/genres/add_media_mapping";
+public const string MusicGenresAlbums = "music/genres/albums";
+public const string MusicGenresCount = "music/genres/count";
+public const string MusicGenresExcludeGenreFromMediaItem = "music/genres/exclude_genre_from_media_item";
+public const string MusicGenresGenreExclusionsForMediaItem = "music/genres/genre_exclusions_for_media_item";
+public const string MusicGenresGenresForMediaItem = "music/genres/genres_for_media_item";
+public const string MusicGenresGet = "music/genres/get";
+public const string MusicGenresGetByExternalId = "music/genres/get_by_external_id";
+public const string MusicGenresGetCollection = "music/genres/get_collection";
+public const string MusicGenresGlobalExclusions = "music/genres/global_exclusions";
+public const string MusicGenresLibraryItems = "music/genres/library_items";
+public const string MusicGenresMediaCounts = "music/genres/media_counts";
+public const string MusicGenresMerge = "music/genres/merge";
+public const string MusicGenresOverview = "music/genres/overview";
+public const string MusicGenresPromoteAlias = "music/genres/promote_alias";
+public const string MusicGenresRemove = "music/genres/remove";
+public const string MusicGenresRemoveAlias = "music/genres/remove_alias";
+public const string MusicGenresRemoveGenreExclusion = "music/genres/remove_genre_exclusion";
+public const string MusicGenresRemoveGlobalExclusion = "music/genres/remove_global_exclusion";
+public const string MusicGenresRemoveMediaMapping = "music/genres/remove_media_mapping";
+public const string MusicGenresRestoreDefaults = "music/genres/restore_defaults";
+public const string MusicGenresScanMappings = "music/genres/scan_mappings";
+public const string MusicGenresScannerStatus = "music/genres/scanner_status";
+public const string MusicGenresTracks = "music/genres/tracks";
+public const string MusicGenresUpdate = "music/genres/update";
+public const string MusicGetLibraryItem = "music/get_library_item";
+public const string MusicInProgressItems = "music/in_progress_items";
+public const string MusicItem = "music/item";
+public const string MusicItemByName = "music/item_by_name";
+public const string MusicItemByUri = "music/item_by_uri";
+public const string MusicLibraryAddItem = "music/library/add_item";
+public const string MusicLibraryRemoveItem = "music/library/remove_item";
+public const string MusicMarkPlayed = "music/mark_played";
+public const string MusicMarkUnplayed = "music/mark_unplayed";
+public const string MusicMatchProviders = "music/match_providers";
+public const string MusicPlaylistsAddPlaylistTracks = "music/playlists/add_playlist_tracks";
+public const string MusicPlaylistsCount = "music/playlists/count";
+public const string MusicPlaylistsCreatePlaylist = "music/playlists/create_playlist";
+public const string MusicPlaylistsExportPlaylist = "music/playlists/export_playlist";
+public const string MusicPlaylistsGet = "music/playlists/get";
+public const string MusicPlaylistsGetByExternalId = "music/playlists/get_by_external_id";
+public const string MusicPlaylistsGetCollection = "music/playlists/get_collection";
+public const string MusicPlaylistsImportPlaylist = "music/playlists/import_playlist";
+public const string MusicPlaylistsLibraryItems = "music/playlists/library_items";
+public const string MusicPlaylistsPlaylistTracks = "music/playlists/playlist_tracks";
+public const string MusicPlaylistsRemove = "music/playlists/remove";
+public const string MusicPlaylistsRemovePlaylistTracks = "music/playlists/remove_playlist_tracks";
+public const string MusicPlaylistsUpdate = "music/playlists/update";
+public const string MusicPodcastsCount = "music/podcasts/count";
+public const string MusicPodcastsGet = "music/podcasts/get";
+public const string MusicPodcastsGetByExternalId = "music/podcasts/get_by_external_id";
+public const string MusicPodcastsGetCollection = "music/podcasts/get_collection";
+public const string MusicPodcastsLibraryItems = "music/podcasts/library_items";
+public const string MusicPodcastsPodcastEpisode = "music/podcasts/podcast_episode";
+public const string MusicPodcastsPodcastEpisodes = "music/podcasts/podcast_episodes";
+public const string MusicPodcastsPodcastVersions = "music/podcasts/podcast_versions";
+public const string MusicPodcastsRemove = "music/podcasts/remove";
+public const string MusicPodcastsUpdate = "music/podcasts/update";
+public const string MusicRadiosCount = "music/radios/count";
+public const string MusicRadiosExportRadios = "music/radios/export_radios";
+public const string MusicRadiosGet = "music/radios/get";
+public const string MusicRadiosGetByExternalId = "music/radios/get_by_external_id";
+public const string MusicRadiosGetCollection = "music/radios/get_collection";
+public const string MusicRadiosImportRadios = "music/radios/import_radios";
+public const string MusicRadiosLibraryItems = "music/radios/library_items";
+public const string MusicRadiosRadioTracks = "music/radios/radio_tracks";
+public const string MusicRadiosRadioVersions = "music/radios/radio_versions";
+public const string MusicRadiosRemove = "music/radios/remove";
+public const string MusicRadiosUpdate = "music/radios/update";
+public const string MusicRecentlyAddedTracks = "music/recently_added_tracks";
+public const string MusicRecentlyPlayedItems = "music/recently_played_items";
+public const string MusicRecommendations = "music/recommendations";
+public const string MusicRecommendationsItems = "music/recommendations/items";
+public const string MusicRefreshItem = "music/refresh_item";
+public const string MusicRemoveProviderMapping = "music/remove_provider_mapping";
+public const string MusicSearch = "music/search";
+public const string MusicSoundEffects = "music/sound_effects";
+public const string MusicSync = "music/sync";
+public const string MusicTrackByName = "music/track_by_name";
+public const string MusicTracksCount = "music/tracks/count";
+public const string MusicTracksGet = "music/tracks/get";
+public const string MusicTracksGetByExternalId = "music/tracks/get_by_external_id";
+public const string MusicTracksGetCollection = "music/tracks/get_collection";
+public const string MusicTracksLibraryItems = "music/tracks/library_items";
+public const string MusicTracksPreview = "music/tracks/preview";
+public const string MusicTracksRemove = "music/tracks/remove";
+public const string MusicTracksSimilarTracks = "music/tracks/similar_tracks";
+public const string MusicTracksTrackAlbums = "music/tracks/track_albums";
+public const string MusicTracksTrackVersions = "music/tracks/track_versions";
+public const string MusicTracksUpdate = "music/tracks/update";
+public const string MusicVerifyItemUri = "music/verify_item_uri";
 }

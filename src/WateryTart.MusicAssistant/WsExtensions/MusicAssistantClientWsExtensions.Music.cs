@@ -13,6 +13,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// </summary>
     /// <param name="favouriteOnly">Whether to restrict results favourites only.</param>
     /// <returns>A <see cref="CountResponse"/> containing the album count.</returns>
+    [ToRpc]
     public static async Task<CountResponse> GetAlbumsCountAsync(this MusicAssistantClientWs c, bool favouriteOnly = false)
     {
         var m = new Message(Commands.MusicAlbumsCount)
@@ -31,6 +32,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// Retrieves the count of audiobooks, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="CountResponse"/> containing the audiobook count.</returns>
+    [ToRpc]
     public static async Task<CountResponse> GetAudiobookCountAsync(this MusicAssistantClientWs c)
     {
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicAudiobooksCount, "false", "favorite_only"));
@@ -40,6 +42,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// Retrieves the count of genres, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="CountResponse"/> containing the genre count.</returns>
+    [ToRpc]
     public static async Task<CountResponse> GetGenreCountAsync(this MusicAssistantClientWs c)
     {
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.GenresCount, "false", "favorite_only"));
@@ -51,9 +54,10 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="id">The album ID.</param>
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
     /// <returns>An <see cref="AlbumResponse"/> with album details.</returns>
+    [ToRpc]
     public static async Task<AlbumResponse> GetMusicAlbumAsync(this MusicAssistantClientWs c, string id, string providerInstanceIdOrDomain)
     {
-        return await SendAsync<AlbumResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicAlbumGet, id, providerInstanceIdOrDomain));
+        return await SendAsync<AlbumResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicAlbumsGet, id, providerInstanceIdOrDomain));
     }
 
     [ToRpc]
@@ -68,7 +72,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
     public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null, OrderBy order = OrderBy.Unknown, bool favouriteOnly = false)
     {
-        var m = new Message(Commands.MusicAlbumLibraryItems)
+        var m = new Message(Commands.MusicAlbumsLibraryItems)
         {
             Args = []
         };
@@ -99,15 +103,17 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="id">The album ID.</param>
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
     /// <returns>A <see cref="TracksResponse"/> containing the album tracks.</returns>
+    [ToRpc]
     public static async Task<TracksResponse> GetMusicAlbumTracksAsync(this MusicAssistantClientWs c, string id, string providerInstanceIdOrDomain)
     {
-        return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicAlbumTracks, id, providerInstanceIdOrDomain));
+        return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicAlbumsAlbumTracks, id, providerInstanceIdOrDomain));
     }
 
     /// <summary>
     /// Retrieves music recommendations.
     /// </summary>
     /// <returns>A <see cref="RecommendationResponse"/> containing recommended items.</returns>
+    [ToRpc]
     public static async Task<RecommendationResponse> GetMusicRecommendationsAsync(this MusicAssistantClientWs c)
     {
         return await SendAsync<RecommendationResponse>(c, ClientHelpers.JustCommand(Commands.MusicRecommendations));
@@ -119,9 +125,10 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="id">The track ID.</param>
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
     /// <returns>A <see cref="TracksResponse"/> containing similar tracks.</returns>
+    [ToRpc]
     public static async Task<TracksResponse> GetMusicSimilarTracksAsync(this MusicAssistantClientWs c, string id, string providerInstanceIdOrDomain)
     {
-        return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicSimilarTracks, id, providerInstanceIdOrDomain));
+        return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicTracksSimilarTracks, id, providerInstanceIdOrDomain));
     }
 
     /// <summary>
@@ -130,6 +137,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="playlistId">The playlist ID.</param>
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
     /// <returns>A <see cref="PlaylistResponse"/> containing playlist details.</returns>
+    [ToRpc]
     public static async Task<PlaylistResponse> GetPlaylistAsync(this MusicAssistantClientWs c, string playlistId, string providerInstanceIdOrDomain)
     {
         return await SendAsync<PlaylistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicPlaylistsGet, playlistId, providerInstanceIdOrDomain));
@@ -178,6 +186,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// Retrieves the count of playlists, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="CountResponse"/> containing the playlist count.</returns>
+    [ToRpc]
     public static async Task<CountResponse> GetPlaylistsCountAsync(this MusicAssistantClientWs c)
     {
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicPlaylistsCount, "false", "favorite_only"));
@@ -189,6 +198,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="playlistId">The playlist ID.</param>
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
     /// <returns>A <see cref="TracksResponse"/> containing the playlist tracks.</returns>
+    [ToRpc]
     public static async Task<TracksResponse> GetPlaylistTracksAsync(this MusicAssistantClientWs c, string playlistId, string providerInstanceIdOrDomain)
     {
         return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicPlaylistsPlaylistTracks, playlistId, providerInstanceIdOrDomain));
@@ -198,6 +208,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// Retrieves the count of podcasts, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="CountResponse"/> containing the podcast count.</returns>
+    [ToRpc]
     public static async Task<CountResponse> GetPodcastCountAsync(this MusicAssistantClientWs c)
     {
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicPodcastsCount, "false", "favorite_only"));
@@ -207,6 +218,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// Retrieves the count of radios, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="CountResponse"/> containing the radio count.</returns>
+    [ToRpc]
     public static async Task<CountResponse> GetRadiosCountAsync(this MusicAssistantClientWs c)
     {
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicRadiosCount, "false", "favorite_only"));
@@ -217,6 +229,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// </summary>
     /// <param name="limit">Maximum number of tracks to return. Default is 0 (no limit).</param>
     /// <returns>A <see cref="TracksResponse"/> containing the recently added tracks.</returns>
+    [ToRpc]
     public static async Task<TracksResponse> GetRecentlyAddedTracksAsync(this MusicAssistantClientWs c, int limit = 0)
     {
         return await SendAsync<TracksResponse>(c, ClientHelpers.JustId(Commands.MusicRecentlyAddedTracks, "limit", limit.ToString()));
@@ -231,6 +244,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="fullyPlayedOnly">If <c>true</c>, returns only fully played items. Default is <c>false</c>.</param>
     /// <param name="userInitiatedOnly">If <c>true</c>, returns only user-initiated plays. Default is <c>false</c>.</param>
     /// <returns>A <see cref="TracksResponse"/> containing the recently played items.</returns>
+    [ToRpc]
     public static async Task<TracksResponse> GetRecentlyPlayedItemsAsync(this MusicAssistantClientWs c, int limit = 0, string userid = "",
             string queueid = "", bool fullyPlayedOnly = false, bool userInitiatedOnly = false)
     {
@@ -259,9 +273,10 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
     /// <param name="inLibraryOnly">Whether to restrict results to library items only.</param>
     /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
+    [ToRpc]
     public static async Task<AlbumsResponse> GetTrackAlbumsAsync(this MusicAssistantClientWs c, string itemid, string providerInstanceIdOrDomain, bool inLibraryOnly = false)
     {
-        var m = new Message(Commands.MusicTracksTrackAlbum)
+        var m = new Message(Commands.MusicTracksTrackAlbums)
         {
             Args = new Dictionary<string, object>()
             {
@@ -278,6 +293,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// Retrieves the count of tracks, optionally filtered by favorite status.
     /// </summary>
     /// <returns>A <see cref="CountResponse"/> containing the track count.</returns>
+    [ToRpc]
     public static async Task<CountResponse> GetTrackCountAsync(this MusicAssistantClientWs c)
     {
         return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicTracksCount, "false", "favourite_only"));
@@ -325,9 +341,10 @@ public static partial class MusicAssistantClientWsExtensions
     /// </summary>
     /// <param name="t">The media item to add to favorites.</param>
     /// <returns>A <see cref="TempResponse"/> indicating the operation result.</returns>
+    [ToRpc]
     public static async Task<TempResponse> AddFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
     {
-        var m = new Message(Commands.MusicFavouritesAddItem)
+        var m = new Message(Commands.MusicFavoritesAddItem)
         {
             Args = new Dictionary<string, object>()
                 {
@@ -342,9 +359,10 @@ public static partial class MusicAssistantClientWsExtensions
     /// </summary>
     /// <param name="t">The media item to remove from favorites.</param>
     /// <returns>A <see cref="TempResponse"/> indicating the operation result.</returns>
+    [ToRpc]
     public static async Task<TempResponse> RemoveFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
     {
-        var m = new Message(Commands.MusicFavouritesRemoveItem)
+        var m = new Message(Commands.MusicFavoritesRemoveItem)
         {
             Args = new Dictionary<string, object>()
                 {
@@ -362,6 +380,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="itemId">The unique identifier of the item.</param>
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain hosting the item.</param>
     /// <returns>An <see cref="ItemResponse"/> containing the library item details.</returns>
+    [ToRpc]
     public static async Task<ItemResponse> GetLibraryItemAsync(this MusicAssistantClientWs c, MediaType type, string itemId, string providerInstanceIdOrDomain)
     {
         var m = new Message(Commands.MusicGetLibraryItem)

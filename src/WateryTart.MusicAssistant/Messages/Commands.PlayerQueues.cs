@@ -24,5 +24,11 @@
         public const string PlayerQueuesSkip = "player_queues/skip";
         public const string PlayerQueuesStop = "player_queues/stop";
         public const string PlayerQueuesTransfer = "player_queues/transfer";
+        public const string PlayerQueuesAutoplay = "player_queues/autoplay";
+        public const string PlayerQueuesCrossfade = "player_queues/crossfade";
+        public const string PlayerQueuesMoveItemEnd = "player_queues/move_item_end";
+        public const string PlayerQueuesOverlay = "player_queues/overlay";
+        public const string PlayerQueuesSaveAsPlaylist = "player_queues/save_as_playlist";
+        public const string PlayerQueuesSetPlaybackSpeed = "player_queues/set_playback_speed";
     }
 }

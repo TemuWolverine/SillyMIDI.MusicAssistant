@@ -6,5 +6,7 @@
         public const string MetadataSetDefaultPreferredLanguage = "metadata/set_default_preferred_language";
         public const string MetadataSetPreferredLanguage = "metadata/set_preferred_language";
         public const string MetadataUpdate = "metadata/update_metadata";
+
+        public const string MetadataGetImagePalette = "metadata/get_image_palette";
     }
 }

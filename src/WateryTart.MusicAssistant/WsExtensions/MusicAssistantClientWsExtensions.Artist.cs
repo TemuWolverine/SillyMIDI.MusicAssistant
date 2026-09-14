@@ -13,9 +13,10 @@ public static partial class MusicAssistantClientWsExtensions
     /// <param name="artistId">The unique identifier of the artist.</param>
     /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain hosting the artist.</param>
     /// <returns>A task that represents the asynchronous operation, containing the artist details.</returns>
+    [ToRpc]
     public static async Task<ArtistResponse> GetArtistAsync(this MusicAssistantClientWs c, string artistId, string providerInstanceIdOrDomain)
     {
-        return await SendAsync<ArtistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicArtistGet, artistId, providerInstanceIdOrDomain));
+        return await SendAsync<ArtistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicArtistsGet, artistId, providerInstanceIdOrDomain));
     }
 
     [ToRpc]
@@ -72,7 +73,7 @@ public static partial class MusicAssistantClientWsExtensions
     /// <returns>A task that represents the asynchronous operation, containing the list of albums by the artist.</returns>
     public static async Task<AlbumsResponse> GetArtistAlbumsAsync(this MusicAssistantClientWs c, string artistId, string providerInstanceIdOrDomain, bool in_library_only = false)
     {
-        var m = new Message(Commands.MusicArtistAlbums)
+        var m = new Message(Commands.MusicArtistsArtistAlbums)
         {
             Args = new Dictionary<string, object>
             {

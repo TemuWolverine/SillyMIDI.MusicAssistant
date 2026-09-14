@@ -186,4 +186,44 @@ public static partial class MusicAssistantClientWsExtensions
 
         return await SendAsync<TempResponse>(c, m);
     }
+
+    [ToRpc]//returns timestamp of when the sleep timer will expire, or null if no sleep timer is set
+    public static async Task<TempResponse> PlayersSleepTimerSet(this MusicAssistantClientWs c, string playerId, int seconds)
+    {
+        var m = new Message(Commands.PlayersSleepTimerSet)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "player_id", playerId },
+                    { "seconds", seconds },
+                }
+        };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
+
+    [ToRpc]//returns timestamp of when the sleep timer will expire, or null if no sleep timer is set
+    public static async Task<TempResponse> PlayersSleepTimerGet(this MusicAssistantClientWs c, string playerId)
+    {
+        var m = new Message(Commands.PlayersSleepTimerGet)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "player_id", playerId },
+                }
+        };
+        return await SendAsync<TempResponse>(c, m);
+    }
+    [ToRpc]//returns null
+    public static async Task<TempResponse> PlayersSleepTimerClear(this MusicAssistantClientWs c, string playerId)
+    {
+        var m = new Message(Commands.PlayersSleepTimerClear)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "player_id", playerId },
+                }
+        };
+        return await SendAsync<TempResponse>(c, m);
+    }
 }

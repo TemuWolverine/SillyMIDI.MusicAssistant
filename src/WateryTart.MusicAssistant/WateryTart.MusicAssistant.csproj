@@ -31,6 +31,9 @@
 		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="RpcExtensions\MusicAssistantClientRpcExtensions.Music.cs" />
+	</ItemGroup>
+	<ItemGroup>
 		<None Include="..\..\assets\logo.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
@@ -58,13 +61,12 @@
 			<IncludeAssets>WateryTart.MusicAssistant.Generators.Attributes.dll</IncludeAssets>
 
 		</ProjectReference>
-		<ProjectReference Include="..\WateryTart.MusicAssistant.Generators\WateryTart.MusicAssistant.Generators.csproj"  OutputItemType="Analyzer"
-                      ReferenceOutputAssembly="false"  />
+		<ProjectReference Include="..\WateryTart.MusicAssistant.Generators\WateryTart.MusicAssistant.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 	<Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
 		<ItemGroup>
-			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))"/>
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
 		</ItemGroup>
 	</Target>
 	

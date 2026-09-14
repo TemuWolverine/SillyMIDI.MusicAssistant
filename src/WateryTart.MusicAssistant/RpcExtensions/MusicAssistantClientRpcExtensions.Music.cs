@@ -52,7 +52,7 @@ public static partial class MusicAssistantClientRpcExtensions
     /// <returns>An <see cref="Album"/> with album details.</returns>
     public static async Task<Album?> GetMusicAlbumAsync(this MusicAssistantClientRpc c, string id, string providerInstanceIdOrDomain)
     {
-        return await c.Send<Album?>(ClientHelpers.IdAndProvider(Commands.MusicAlbumGet, id, providerInstanceIdOrDomain));
+        return await c.Send<Album?>(ClientHelpers.IdAndProvider(Commands.MusicAlbumsGet, id, providerInstanceIdOrDomain));
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public static partial class MusicAssistantClientRpcExtensions
     /// <returns>A <see cref="List<Item>"/> containing the album tracks.</returns>
     public static async Task<List<Item>?> GetMusicAlbumTracksAsync(this MusicAssistantClientRpc c, string id, string providerInstanceIdOrDomain)
     {
-        return await c.Send<List<Item>?>(ClientHelpers.IdAndProvider(Commands.MusicAlbumTracks, id, providerInstanceIdOrDomain));
+        return await c.Send<List<Item>?>(ClientHelpers.IdAndProvider(Commands.MusicAlbumsTracks, id, providerInstanceIdOrDomain));
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public static partial class MusicAssistantClientRpcExtensions
     /// <returns>A <see cref="List<Item>"/> containing similar tracks.</returns>
     public static async Task<List<Item>?> GetMusicSimilarTracksAsync(this MusicAssistantClientRpc c, string id, string providerInstanceIdOrDomain)
     {
-        return await c.Send<List<Item>?>(ClientHelpers.IdAndProvider(Commands.MusicSimilarTracks, id, providerInstanceIdOrDomain));
+        return await c.Send<List<Item>?>(ClientHelpers.IdAndProvider(Commands.MusicTracksSimilarTracks, id, providerInstanceIdOrDomain));
     }
 
     /// <summary>
@@ -170,7 +170,7 @@ public static partial class MusicAssistantClientRpcExtensions
     /// <returns>An <see cref="List<Album>"/> containing the albums.</returns>
     public static async Task<List<Album>?> GetTrackAlbumsAsync(this MusicAssistantClientRpc c, string itemid, string providerInstanceIdOrDomain, bool inLibraryOnly = false)
     {
-        var m = new Message(Commands.MusicTracksTrackAlbum)
+        var m = new Message(Commands.MusicTracksTrackAlbums)
         {
             Args = new Dictionary<string, object>()
             {
@@ -194,7 +194,7 @@ public static partial class MusicAssistantClientRpcExtensions
 
     public static async Task<Task> AddFavoriteItemAsync(this MusicAssistantClientRpc c, MediaItemBase t)
     {
-        var m = new Message(Commands.MusicFavouritesAddItem)
+        var m = new Message(Commands.MusicFavoritesAddItem)
         {
             Args = new Dictionary<string, object>()
                 {
@@ -206,7 +206,7 @@ public static partial class MusicAssistantClientRpcExtensions
 
     public static async Task<Task> RemoveFavoriteItemAsync(this MusicAssistantClientRpc c, MediaItemBase t)
     {
-        var m = new Message(Commands.MusicFavouritesRemoveItem)
+        var m = new Message(Commands.MusicFavoritesRemoveItem)
         {
             Args = new Dictionary<string, object>()
                 {

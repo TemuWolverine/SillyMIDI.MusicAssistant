@@ -1,0 +1,13 @@
+﻿From powershell
+
+$commands = Invoke-RestMethod "http://<server>:8095/api-docs/commands.json"
+
+foreach ($cmd in $commands) {
+    $name = ($cmd.command -split '[/_-]' | ForEach-Object {
+        if ($_.Length -gt 0) {
+            $_.Substring(0,1).ToUpper() + $_.Substring(1)
+        }
+    }) -join ''
+
+    'public const string {0} = "{1}";' -f $name, $cmd.command
+}
