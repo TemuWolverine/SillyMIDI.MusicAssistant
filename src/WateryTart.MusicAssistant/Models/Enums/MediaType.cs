@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Converters;
 
 namespace WateryTart.MusicAssistant.Models.Enums;
@@ -16,5 +16,11 @@ public enum MediaType
     Podcast,
     PodcastEpisode,
     Audiobook,
-    Folder
+    Folder,
+    Collection,
+    Announcement,
+    FlowStream,
+    PluginSource,
+    AudioSource,
+    SoundEffect
 }

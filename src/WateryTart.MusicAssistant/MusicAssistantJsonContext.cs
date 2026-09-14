@@ -1,5 +1,6 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using WateryTart.MusicAssistant.Events;
+using System.Text.Json;
 using WateryTart.MusicAssistant.Messages;
 using WateryTart.MusicAssistant.Models;
 using WateryTart.MusicAssistant.Models.Auth;
@@ -81,6 +82,7 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(Search))]
 [JsonSerializable(typeof(SourceList))]
 [JsonSerializable(typeof(Streamdetails))]
+[JsonSerializable(typeof(ServerInfo))]
 [JsonSerializable(typeof(AuthUser))]
 [JsonSerializable(typeof(LoginResults))]
 [JsonSerializable(typeof(MusicAssistantCredentials))]
@@ -108,6 +110,9 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(RecommendationResponse))]
 [JsonSerializable(typeof(SearchResponse))]
 [JsonSerializable(typeof(TempResponse))]
+[JsonSerializable(typeof(JsonElementResponse))]
+[JsonSerializable(typeof(AuthProvidersResponse))]
+[JsonSerializable(typeof(ServerInfoResponse))]
 [JsonSerializable(typeof(TracksResponse))]
 [JsonSerializable(typeof(ResponseBase<int>))]
 [JsonSerializable(typeof(ResponseBase<object>))]
@@ -148,6 +153,9 @@ This is a limitation of the System.Text.Json source generator, I'm unsure that c
 [JsonSerializable(typeof(ResponseBase<Provider>))]
 [JsonSerializable(typeof(ResponseBase<string>))]
 [JsonSerializable(typeof(ResponseBase<User>))]
+[JsonSerializable(typeof(SoundEffect))]
+[JsonSerializable(typeof(SoundEffectResponse))]
+[JsonSerializable(typeof(ResponseBase<SoundEffect>))]
 public partial class MusicAssistantJsonContext : JsonSerializerContext
 {
 }
