@@ -1,5 +1,27 @@
 # Changelog
 
+## [5.0.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.3.0...v5.0.0) (2026-09-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* updated nuget metadata
+
+### Features
+
+* added Party, Sendspin, SmartyPlaylists and Tasks API coverage ([3aaff55](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/3aaff554dd2a139b84bfbf00d91aa8dd98d6450c))
+* added sound effect API coverage ([782cdb7](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/782cdb78f6ea5b00d3bb9aa086c35d81de438e6d))
+* added waveform api call ([5acd84a](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/5acd84a0c870a58915a26275767b11b17d7bb0d9))
+* increased API coverage for Music, Player, Players, PlayerQueues spaces ([b29c8a2](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/b29c8a22038908928b5fc157358653a278d7dae4))
+* increased command coverage for API65. Note, this is just the command strings, not actual API coverage ([fcb36c0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/fcb36c0740438e3386a3d09bb86b270ff7c8abf9))
+* rebrand ([a89a546](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/a89a546669a4ba5b7325271a7d67f290831c159e))
+* updated nuget metadata ([d2b4c28](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/d2b4c28e16857de61be1be0d5566fbd5f84c8d43))
+
+
+### Bug Fixes
+
+* corrected url for call ([052dd18](https://github.com/TemuWolverine/WateryTart.MusicAssistant/commit/052dd18458ee09d79b4dd0f11ffb25638cfd645c))
+
 ## [4.3.0](https://github.com/TemuWolverine/SillyMIDI.MusicAssistant/compare/v4.2.0...v4.3.0) (2026-07-27)
 
 
