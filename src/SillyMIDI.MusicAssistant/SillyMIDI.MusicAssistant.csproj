@@ -10,11 +10,11 @@
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Music Assistant Client Library</Title>
-		<PackageProjectUrl>https://github.com/thewoodknight/SillyMIDI.MusicAssistant</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/thewoodknight/SillyMIDI.MusicAssistant</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/temuwolverine/SillyMIDI.MusicAssistant</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/temuwolverine/SillyMIDI.MusicAssistant</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<Company>WateryTart</Company>
-		<Authors>WateryTart Contributors</Authors>
+		<Company>tmuWolverine</Company>
+		<Authors>SillyMIDI Contributors</Authors>
 		<Description>Music Assistant Client Library, providing both a websocket and RPC interface</Description>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
