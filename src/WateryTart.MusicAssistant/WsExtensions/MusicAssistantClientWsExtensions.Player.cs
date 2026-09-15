@@ -8,6 +8,21 @@ namespace WateryTart.MusicAssistant.WsExtensions;
 
 public static partial class MusicAssistantClientWsExtensions
 {
+    [ToRpc]
+    public static async Task<TempResponse> ClearPlayerQueueAsync(this MusicAssistantClientWs c, string queueId, bool skip_stop = true)
+    {
+        var m = new Message(Commands.PlayerQueuesClear)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "skip_stop", skip_stop },
+                }
+        };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
+
     public static async Task<PlayerQueueResponse> GetPlayerActiveQueueAsync(this MusicAssistantClientWs c, string id)
     {
         return await SendAsync<PlayerQueueResponse>(c, ClientHelpers.JustId(Commands.PlayerActiveQueue, id, "player_id"));
@@ -26,7 +41,6 @@ public static partial class MusicAssistantClientWsExtensions
     {
         return await SendAsync<PlayersQueuesResponse>(c, ClientHelpers.JustCommand(Commands.PlayerQueuesAll));
     }
-
 
     /// <summary>
     /// Retrieves a list of all available players from the Music Assistant server.
@@ -63,20 +77,6 @@ public static partial class MusicAssistantClientWsExtensions
 
         if (radiomode)
             m.Args.Add("radio_mode", true);
-
-        return await SendAsync<PlayersQueuesResponse>(c, m);
-    }
-
-    public static async Task<PlayersQueuesResponse> SetPlayerGroupVolumeAsync(this MusicAssistantClientWs c, string playerId, int volume)
-    {
-        var m = new Message(Commands.PlayerGroupVolume)
-        {
-            Args = new Dictionary<string, object>()
-                {
-                    { "player_id", playerId },
-                    { "volume_level", volume },
-                }
-        };
 
         return await SendAsync<PlayersQueuesResponse>(c, m);
     }
@@ -126,64 +126,29 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<TempResponse>(c, m);
     }
 
-    [ToRpc]
-    public static async Task<TempResponse> SetPlayerQueueRepeatAsync(this MusicAssistantClientWs c, string queueId, RepeatMode mode)
+    [ToRpc]//returns null
+    public static async Task<TempResponse> PlayersSleepTimerClear(this MusicAssistantClientWs c, string playerId)
     {
-        var m = new Message(Commands.PlayerQueuesRepeat)
+        var m = new Message(Commands.PlayersSleepTimerClear)
         {
             Args = new Dictionary<string, object>()
                 {
-                    { "queue_id", queueId },
-                    { "repeat_mode", mode },
+                    { "player_id", playerId },
                 }
         };
-
         return await SendAsync<TempResponse>(c, m);
     }
 
-
-    [ToRpc]
-    public static async Task<TempResponse> SetPlayerQueueShuffleAsync(this MusicAssistantClientWs c, string queueId, bool shuffle_enable)
+    [ToRpc]//returns timestamp of when the sleep timer will expire, or null if no sleep timer is set
+    public static async Task<TempResponse> PlayersSleepTimerGet(this MusicAssistantClientWs c, string playerId)
     {
-        var m = new Message(Commands.PlayerQueuesShuffle)
+        var m = new Message(Commands.PlayersSleepTimerGet)
         {
             Args = new Dictionary<string, object>()
                 {
-                    { "queue_id", queueId },
-                    { "shuffle_enabled", shuffle_enable },
+                    { "player_id", playerId },
                 }
         };
-
-        return await SendAsync<TempResponse>(c, m);
-    }
-
-    [ToRpc]
-    public static async Task<TempResponse> SetPlayerQueueDontStopTheMusicAsync(this MusicAssistantClientWs c, string queueId, bool dont_stop_the_music_enabled)
-    {
-        var m = new Message(Commands.PlayerQueuesDontStopTheMusic)
-        {
-            Args = new Dictionary<string, object>()
-                {
-                    { "queue_id", queueId },
-                    { "dont_stop_the_music_enabled", dont_stop_the_music_enabled },
-                }
-        };
-
-        return await SendAsync<TempResponse>(c, m);
-    }
-
-    [ToRpc]
-    public static async Task<TempResponse> ClearPlayerQueueAsync(this MusicAssistantClientWs c, string queueId, bool skip_stop = true)
-    {
-        var m = new Message(Commands.PlayerQueuesClear)
-        {
-            Args = new Dictionary<string, object>()
-                {
-                    { "queue_id", queueId },
-                    { "skip_stop", skip_stop },
-                }
-        };
-
         return await SendAsync<TempResponse>(c, m);
     }
 
@@ -202,28 +167,62 @@ public static partial class MusicAssistantClientWsExtensions
         return await SendAsync<TempResponse>(c, m);
     }
 
-    [ToRpc]//returns timestamp of when the sleep timer will expire, or null if no sleep timer is set
-    public static async Task<TempResponse> PlayersSleepTimerGet(this MusicAssistantClientWs c, string playerId)
+    public static async Task<PlayersQueuesResponse> SetPlayerGroupVolumeAsync(this MusicAssistantClientWs c, string playerId, int volume)
     {
-        var m = new Message(Commands.PlayersSleepTimerGet)
+        var m = new Message(Commands.PlayerGroupVolume)
         {
             Args = new Dictionary<string, object>()
                 {
                     { "player_id", playerId },
+                    { "volume_level", volume },
                 }
         };
+
+        return await SendAsync<PlayersQueuesResponse>(c, m);
+    }
+
+    [ToRpc]
+    public static async Task<TempResponse> SetPlayerQueueDontStopTheMusicAsync(this MusicAssistantClientWs c, string queueId, bool dont_stop_the_music_enabled)
+    {
+        var m = new Message(Commands.PlayerQueuesDontStopTheMusic)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "dont_stop_the_music_enabled", dont_stop_the_music_enabled },
+                }
+        };
+
         return await SendAsync<TempResponse>(c, m);
     }
-    [ToRpc]//returns null
-    public static async Task<TempResponse> PlayersSleepTimerClear(this MusicAssistantClientWs c, string playerId)
+
+    [ToRpc]
+    public static async Task<TempResponse> SetPlayerQueueRepeatAsync(this MusicAssistantClientWs c, string queueId, RepeatMode mode)
     {
-        var m = new Message(Commands.PlayersSleepTimerClear)
+        var m = new Message(Commands.PlayerQueuesRepeat)
         {
             Args = new Dictionary<string, object>()
                 {
-                    { "player_id", playerId },
+                    { "queue_id", queueId },
+                    { "repeat_mode", mode },
                 }
         };
+
+        return await SendAsync<TempResponse>(c, m);
+    }
+
+    [ToRpc]
+    public static async Task<TempResponse> SetPlayerQueueShuffleAsync(this MusicAssistantClientWs c, string queueId, bool shuffle_enable)
+    {
+        var m = new Message(Commands.PlayerQueuesShuffle)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "queue_id", queueId },
+                    { "shuffle_enabled", shuffle_enable },
+                }
+        };
+
         return await SendAsync<TempResponse>(c, m);
     }
 }

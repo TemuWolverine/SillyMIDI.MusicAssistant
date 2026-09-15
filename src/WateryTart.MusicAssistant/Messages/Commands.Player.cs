@@ -1,4 +1,4 @@
-﻿namespace WateryTart.MusicAssistant.Messages;
+namespace WateryTart.MusicAssistant.Messages;
 
 public static partial class Commands
 {
@@ -13,6 +13,7 @@ public static partial class Commands
     public const string PlayerQueueItems = "player_queues/items";
     public const string PlayerQueuePlayMedia = "player_queues/play_media";
     public const string PlayersAddCurrentlyPlayingToFavorites = "players/cmd/add_currently_playing_to_favorites";
+    public const string PlayersAddCurrentlyPlayingToFavoritesDirect = "players/add_currently_playing_to_favorites";
     public const string PlayersAll = "players/all";
     public const string PlayersCmdGroup = "players/cmd/group";
     public const string PlayersCmdGroupMany = "players/cmd/group_many";
