@@ -55,7 +55,7 @@ public static partial class MusicAssistantClientWsExtensions
         if (offset != null)
             Args.Add("offset", offset);
 
-        var m = new Message(Commands.MusicArtistsGet)
+        var m = new Message(Commands.MusicArtistsLibraryItems)
         {
             Args = Args
         };
