@@ -1,0 +1,398 @@
+﻿using SillyMIDI.MusicAssistant.Generators.Attributes;
+using SillyMIDI.MusicAssistant.Messages;
+using SillyMIDI.MusicAssistant.Models;
+using SillyMIDI.MusicAssistant.Models.Enums;
+using SillyMIDI.MusicAssistant.Responses;
+
+namespace SillyMIDI.MusicAssistant.WsExtensions;
+
+public static partial class MusicAssistantClientWsExtensions
+{
+    /// <summary>
+    /// Retrieves the count of albums, optionally filtered by favorite status
+    /// </summary>
+    /// <param name="favouriteOnly">Whether to restrict results favourites only.</param>
+    /// <returns>A <see cref="CountResponse"/> containing the album count.</returns>
+    [ToRpc]
+    public static async Task<CountResponse> GetAlbumsCountAsync(this MusicAssistantClientWs c, bool favouriteOnly = false)
+    {
+        var m = new Message(Commands.MusicAlbumsCount)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "favorite_only", favouriteOnly },
+                    { "album_types", "[\"album\", \"single\", \"live\", \"soundtrack\", \"compilation\", \"ep\", \"unknown\"]" }
+                }
+        };
+
+        return await SendAsync<CountResponse>(c, m);
+    }
+
+    /// <summary>
+    /// Retrieves the count of audiobooks, optionally filtered by favorite status.
+    /// </summary>
+    /// <returns>A <see cref="CountResponse"/> containing the audiobook count.</returns>
+    [ToRpc]
+    public static async Task<CountResponse> GetAudiobookCountAsync(this MusicAssistantClientWs c)
+    {
+        return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicAudiobooksCount, "false", "favorite_only"));
+    }
+
+    /// <summary>
+    /// Retrieves the count of genres, optionally filtered by favorite status.
+    /// </summary>
+    /// <returns>A <see cref="CountResponse"/> containing the genre count.</returns>
+    [ToRpc]
+    public static async Task<CountResponse> GetGenreCountAsync(this MusicAssistantClientWs c)
+    {
+        return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.GenresCount, "false", "favorite_only"));
+    }
+
+    /// <summary>
+    /// Retrieves album details for a specific album and provider.
+    /// </summary>
+    /// <param name="id">The album ID.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
+    /// <returns>An <see cref="AlbumResponse"/> with album details.</returns>
+    [ToRpc]
+    public static async Task<AlbumResponse> GetMusicAlbumAsync(this MusicAssistantClientWs c, string id, string providerInstanceIdOrDomain)
+    {
+        return await SendAsync<AlbumResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicAlbumsGet, id, providerInstanceIdOrDomain));
+    }
+
+    [ToRpc]
+    /// <summary>
+    /// Retrieves a list of album library items, with optional pagination.
+    /// </summary>
+    /// <param name="limit">Maximum number of items to return.</param>
+    /// <param name="offset">Number of items to skip.</param>
+    /// <param name="order_by">Optional custom ordering field.</param>
+    /// <param name="order">Predefined sort order. Ignored if <paramref name="order_by"/> is specified.</param>
+    /// <param name="favouriteOnly">If <c>true</c>, returns only favorite albums. Default is <c>false</c>.</param>
+    /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
+    public static async Task<AlbumsResponse> GetMusicAlbumsLibraryItemsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? order_by = null, OrderBy order = OrderBy.Unknown, bool favouriteOnly = false)
+    {
+        var m = new Message(Commands.MusicAlbumsLibraryItems)
+        {
+            Args = []
+        };
+
+        if (favouriteOnly)
+            m.Args["favorite"] = true;
+
+        if (limit.HasValue)
+        {
+            m.Args["limit"] = limit.Value.ToString();
+        }
+        if (offset.HasValue)
+        {
+            m.Args["offset"] = offset.Value.ToString();
+        }
+        if (!string.IsNullOrEmpty(order_by))
+            m.Args["order_by"] = order_by;
+
+        if (string.IsNullOrEmpty(order_by) && order != OrderBy.Unknown)
+            m.Args["order_by"] = order;
+
+        return await SendAsync<AlbumsResponse>(c, m);
+    }
+
+    /// <summary>
+    /// Retrieves the tracks for a specific album and provider.
+    /// </summary>
+    /// <param name="id">The album ID.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the album tracks.</returns>
+    [ToRpc]
+    public static async Task<TracksResponse> GetMusicAlbumTracksAsync(this MusicAssistantClientWs c, string id, string providerInstanceIdOrDomain)
+    {
+        return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicAlbumsAlbumTracks, id, providerInstanceIdOrDomain));
+    }
+
+    /// <summary>
+    /// Retrieves music recommendations.
+    /// </summary>
+    /// <returns>A <see cref="RecommendationResponse"/> containing recommended items.</returns>
+    [ToRpc]
+    public static async Task<RecommendationResponse> GetMusicRecommendationsAsync(this MusicAssistantClientWs c)
+    {
+        return await SendAsync<RecommendationResponse>(c, ClientHelpers.JustCommand(Commands.MusicRecommendations));
+    }
+
+    /// <summary>
+    /// Retrieves tracks similar to a specific track and provider.
+    /// </summary>
+    /// <param name="id">The track ID.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
+    /// <returns>A <see cref="TracksResponse"/> containing similar tracks.</returns>
+    [ToRpc]
+    public static async Task<TracksResponse> GetMusicSimilarTracksAsync(this MusicAssistantClientWs c, string id, string providerInstanceIdOrDomain)
+    {
+        return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicTracksSimilarTracks, id, providerInstanceIdOrDomain));
+    }
+
+    /// <summary>
+    /// Retrieves a playlist by ID and provider.
+    /// </summary>
+    /// <param name="playlistId">The playlist ID.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
+    /// <returns>A <see cref="PlaylistResponse"/> containing playlist details.</returns>
+    [ToRpc]
+    public static async Task<PlaylistResponse> GetPlaylistAsync(this MusicAssistantClientWs c, string playlistId, string providerInstanceIdOrDomain)
+    {
+        return await SendAsync<PlaylistResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicPlaylistsGet, playlistId, providerInstanceIdOrDomain));
+    }
+
+    [ToRpc]
+    /// <summary>
+    /// Retrieves a list of playlist library items, with optional pagination and filtering.
+    /// </summary>
+    /// <param name="limit">Maximum number of items to return.</param>
+    /// <param name="offset">Number of items to skip.</param>
+    /// <param name="search">Optional search query to filter playlists by name.</param>
+    /// <param name="orderby">Predefined sort order.</param>
+    /// <param name="favourite">If <c>true</c>, returns only favorite playlists. Default is <c>false</c>.</param>
+    /// <returns>A <see cref="PlaylistsResponse"/> containing the playlists.</returns>
+    public static async Task<PlaylistsResponse> GetPlaylistsAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, string? search=null, OrderBy orderby = OrderBy.Unknown, bool favourite = false)
+    {
+        var m = new Message(Commands.MusicPlaylistsLibraryItems)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "favorite_only", favourite },
+                }
+        };
+
+        if (limit.HasValue)
+        {
+            m.Args["limit"] = limit.Value.ToString();
+        }
+        if (offset.HasValue)
+        {
+            m.Args["offset"] = offset.Value.ToString();
+        }
+        if (!string.IsNullOrEmpty(search))
+        {
+            m.Args["search"] = search;
+        }
+        if (orderby != OrderBy.Unknown)
+        {
+            m.Args["order_by"] = orderby;
+        }
+        return await SendAsync<PlaylistsResponse>(c, m);
+    }
+
+    /// <summary>
+    /// Retrieves the count of playlists, optionally filtered by favorite status.
+    /// </summary>
+    /// <returns>A <see cref="CountResponse"/> containing the playlist count.</returns>
+    [ToRpc]
+    public static async Task<CountResponse> GetPlaylistsCountAsync(this MusicAssistantClientWs c)
+    {
+        return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicPlaylistsCount, "false", "favorite_only"));
+    }
+
+    /// <summary>
+    /// Retrieves the tracks for a specific playlist and provider.
+    /// </summary>
+    /// <param name="playlistId">The playlist ID.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the playlist tracks.</returns>
+    [ToRpc]
+    public static async Task<TracksResponse> GetPlaylistTracksAsync(this MusicAssistantClientWs c, string playlistId, string providerInstanceIdOrDomain)
+    {
+        return await SendAsync<TracksResponse>(c, ClientHelpers.IdAndProvider(Commands.MusicPlaylistsPlaylistTracks, playlistId, providerInstanceIdOrDomain));
+    }
+
+    /// <summary>
+    /// Retrieves the count of podcasts, optionally filtered by favorite status.
+    /// </summary>
+    /// <returns>A <see cref="CountResponse"/> containing the podcast count.</returns>
+    [ToRpc]
+    public static async Task<CountResponse> GetPodcastCountAsync(this MusicAssistantClientWs c)
+    {
+        return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicPodcastsCount, "false", "favorite_only"));
+    }
+
+    /// <summary>
+    /// Retrieves the count of radios, optionally filtered by favorite status.
+    /// </summary>
+    /// <returns>A <see cref="CountResponse"/> containing the radio count.</returns>
+    [ToRpc]
+    public static async Task<CountResponse> GetRadiosCountAsync(this MusicAssistantClientWs c)
+    {
+        return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicRadiosCount, "false", "favorite_only"));
+    }
+
+    /// <summary>
+    /// Retrieves recently added tracks from the library.
+    /// </summary>
+    /// <param name="limit">Maximum number of tracks to return. Default is 0 (no limit).</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the recently added tracks.</returns>
+    [ToRpc]
+    public static async Task<TracksResponse> GetRecentlyAddedTracksAsync(this MusicAssistantClientWs c, int limit = 0)
+    {
+        return await SendAsync<TracksResponse>(c, ClientHelpers.JustId(Commands.MusicRecentlyAddedTracks, "limit", limit.ToString()));
+    }
+
+    /// <summary>
+    /// Retrieves recently played items from the library with optional filtering.
+    /// </summary>
+    /// <param name="limit">Maximum number of items to return. Default is 0 (no limit).</param>
+    /// <param name="userid">Optional user ID to filter by.</param>
+    /// <param name="queueid">Optional queue ID to filter by.</param>
+    /// <param name="fullyPlayedOnly">If <c>true</c>, returns only fully played items. Default is <c>false</c>.</param>
+    /// <param name="userInitiatedOnly">If <c>true</c>, returns only user-initiated plays. Default is <c>false</c>.</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the recently played items.</returns>
+    [ToRpc]
+    public static async Task<TracksResponse> GetRecentlyPlayedItemsAsync(this MusicAssistantClientWs c, int limit = 0, string userid = "",
+            string queueid = "", bool fullyPlayedOnly = false, bool userInitiatedOnly = false)
+    {
+        var m = new Message(Commands.MusicRecentlyPlayedItems)
+        {
+            Args = new Dictionary<string, object>()
+            {
+                { "limit", limit},
+                {"fully_played_only", fullyPlayedOnly},
+                {"user_initiated_only", userInitiatedOnly}
+            }
+        };
+
+        if (!string.IsNullOrEmpty(userid))
+            m.Args["user_id"] = userid;
+        if (!string.IsNullOrEmpty(queueid))
+            m.Args["queue_id"] = queueid;
+
+        return await SendAsync<TracksResponse>(c, m); ;
+    }
+
+    /// <summary>
+    /// Retrieves the albums for a specific track and provider, with an option to restrict to library items.
+    /// </summary>
+    /// <param name="itemid">The track ID.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain.</param>
+    /// <param name="inLibraryOnly">Whether to restrict results to library items only.</param>
+    /// <returns>An <see cref="AlbumsResponse"/> containing the albums.</returns>
+    [ToRpc]
+    public static async Task<AlbumsResponse> GetTrackAlbumsAsync(this MusicAssistantClientWs c, string itemid, string providerInstanceIdOrDomain, bool inLibraryOnly = false)
+    {
+        var m = new Message(Commands.MusicTracksTrackAlbums)
+        {
+            Args = new Dictionary<string, object>()
+            {
+                { "item_id", itemid },
+                {"provider_instance_id_or_domain", providerInstanceIdOrDomain},
+                {"in_library_only", inLibraryOnly}
+            }
+        };
+
+        return await SendAsync<AlbumsResponse>(c, m);
+    }
+
+    /// <summary>
+    /// Retrieves the count of tracks, optionally filtered by favorite status.
+    /// </summary>
+    /// <returns>A <see cref="CountResponse"/> containing the track count.</returns>
+    [ToRpc]
+    public static async Task<CountResponse> GetTrackCountAsync(this MusicAssistantClientWs c)
+    {
+        return await SendAsync<CountResponse>(c, ClientHelpers.JustId(Commands.MusicTracksCount, "false", "favourite_only"));
+    }
+
+    [ToRpc]
+    /// <summary>
+    /// Retrieves a list of track library items with optional pagination, sorting, and filtering.
+    /// </summary>
+    /// <param name="limit">Maximum number of tracks to return.</param>
+    /// <param name="offset">Number of tracks to skip (for pagination).</param>
+    /// <param name="order">Predefined sort order.</param>
+    /// <param name="search">Optional search query to filter tracks by name.</param>
+    /// <param name="favourite">If <c>true</c>, returns only favorite tracks. Default is <c>false</c>.</param>
+    /// <returns>A <see cref="TracksResponse"/> containing the tracks.</returns>
+    public static async Task<TracksResponse> GetTracksAsync(this MusicAssistantClientWs c, int? limit = null, int? offset = null, OrderBy order = OrderBy.Unknown, string? search = null, bool favourite = false)
+    {
+        var m = new Message(Commands.MusicTracksLibraryItems)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "favorite_only", favourite },
+                }
+        };
+        if (limit.HasValue)
+        {
+            m.Args["limit"] = limit.Value.ToString();
+        }
+        if (offset.HasValue)
+        {
+            m.Args["offset"] = offset.Value.ToString();
+        }
+
+        if (!string.IsNullOrEmpty(search))
+            m.Args.Add("search", search);
+
+        if (order != OrderBy.Unknown)
+            m.Args.Add("order_by", order);
+
+        return await SendAsync<TracksResponse>(c, m);
+    }
+
+    /// <summary>
+    /// Adds a media item to the user's favorites.
+    /// </summary>
+    /// <param name="t">The media item to add to favorites.</param>
+    /// <returns>A <see cref="TempResponse"/> indicating the operation result.</returns>
+    [ToRpc]
+    public static async Task<TempResponse> AddFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
+    {
+        var m = new Message(Commands.MusicFavoritesAddItem)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "item", t },
+                }
+        };
+        return await SendAsync<TempResponse>(c, m);
+    }
+
+    /// <summary>
+    /// Removes a media item from the user's favorites.
+    /// </summary>
+    /// <param name="t">The media item to remove from favorites.</param>
+    /// <returns>A <see cref="TempResponse"/> indicating the operation result.</returns>
+    [ToRpc]
+    public static async Task<TempResponse> RemoveFavoriteItemAsync(this MusicAssistantClientWs c, MediaItemBase t)
+    {
+        var m = new Message(Commands.MusicFavoritesRemoveItem)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "media_type", t.MediaType },
+                    { "library_item_id", t.ItemId}
+                }
+        };
+        return await SendAsync<TempResponse>(c, m);
+    }
+
+    /// <summary>
+    /// Retrieves a specific library item by media type, item ID, and provider.
+    /// </summary>
+    /// <param name="type">The type of media item (e.g., track, album, artist).</param>
+    /// <param name="itemId">The unique identifier of the item.</param>
+    /// <param name="providerInstanceIdOrDomain">The provider instance ID or domain hosting the item.</param>
+    /// <returns>An <see cref="ItemResponse"/> containing the library item details.</returns>
+    [ToRpc]
+    public static async Task<ItemResponse> GetLibraryItemAsync(this MusicAssistantClientWs c, MediaType type, string itemId, string providerInstanceIdOrDomain)
+    {
+        var m = new Message(Commands.MusicGetLibraryItem)
+        {
+            Args = new Dictionary<string, object>()
+                {
+                    { "media_type", type },
+                    { "item_id", itemId},
+                    { "provider_instance_id_or_domain", providerInstanceIdOrDomain}
+                }
+        };
+        return await SendAsync<ItemResponse>(c, m);
+    }
+    
+}

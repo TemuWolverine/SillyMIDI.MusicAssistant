@@ -1,18 +1,18 @@
-# WateryTart.MusicAssistant
+# SillyMIDI.MusicAssistant
 > Disclaimer: This is an unofficial project and is not affiliated with, endorsed by, or associated with the Music Assistant project.
 
 A .NET8/10 client library for accesseing Music Assistant's API  
-[![release-please](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/releaseplease.yml/badge.svg)](https://github.com/TemuWolverine/WateryTart.MusicAssistant/actions/workflows/releaseplease.yml)
+[![release-please](https://github.com/TemuWolverine/SillyMIDI.MusicAssistant/actions/workflows/releaseplease.yml/badge.svg)](https://github.com/TemuWolverine/SillyMIDI.MusicAssistant/actions/workflows/releaseplease.yml)
 
 This library does not contain a Sendspin client for playback, for that I recommend [Sendspin.SDK](https://github.com/chrisuthe/windowsSpin/wiki).
 
 
-## [Changelog](https://github.com/TemuWolverine/WateryTart.MusicAssistant/blob/main/CHANGELOG.md)
+## [Changelog](https://github.com/TemuWolverine/SillyMIDI.MusicAssistant/blob/main/CHANGELOG.md)
 
 ## Getting Started
 ### Install
 Clone or install from nuget  
-```dotnet add package WateryTart.MusicAssistant```
+```dotnet add package SillyMIDI.MusicAssistant```
 
 ### Prereqs
 * .NET 8.0/10.0 SDK
@@ -33,9 +33,9 @@ While the RPC API
 
 ### Initialisation
 ```csharp
-using WateryTart.MusicAssistant;
-using WateryTart.MusicAssistant.RpcExtensions;
-using WateryTart.MusicAssistant.WsExtensions;
+using SillyMIDI.MusicAssistant;
+using SillyMIDI.MusicAssistant.RpcExtensions;
+using SillyMIDI.MusicAssistant.WsExtensions;
 
 var client = new MusicAssistantClient("10.0.1.20:8095");
 ```
@@ -46,7 +46,7 @@ Calls to each API are structured the same
 `client.WithRpc()` or `client.WithWs()` followed by the method you want to call.
 ie, `client.WithRpc().GetAuthMe();` or `client.WithWs().GetAuthMe()`.
 
-Note, because the two APIs from Music Assistant return different results - the web socket results are in a wrapper - each WateryTart.Music Assistant call will return different objects
+Note, because the two APIs from Music Assistant return different results - the web socket results are in a wrapper - each SillyMIDI.Music Assistant call will return different objects
 
 ### Get Auth
 

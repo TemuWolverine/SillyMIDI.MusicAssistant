@@ -30,23 +30,23 @@ jobs:
         with:
           dotnet-version: '10.x'
           cache: true
-          cache-dependency-path: './src/WateryTart.MusicAssistant/packages.lock.json'
+          cache-dependency-path: './src/SillyMIDI.MusicAssistant/packages.lock.json'
           
       - name: Install dependencies
         run: dotnet restore
         if: ${{ steps.release.outputs.release_created }}
-        working-directory: src/WateryTart.MusicAssistant
+        working-directory: src/SillyMIDI.MusicAssistant
         
       - run: dotnet build  --configuration Release /p:Version=${{ steps.release.outputs.version }}
         if: ${{ steps.release.outputs.release_created }}
-        working-directory: src/WateryTart.MusicAssistant
+        working-directory: src/SillyMIDI.MusicAssistant
         
       - name: Upload artifact
         if: ${{ steps.release.outputs.release_created }}
         uses: actions/upload-artifact@v6
         with:
-          name: WateryTart.MusicAssistant
-          path: src/WateryTart.MusicAssistant/bin/Release/
+          name: SillyMIDI.MusicAssistant
+          path: src/SillyMIDI.MusicAssistant/bin/Release/
           
       # Get a short-lived NuGet API key
       - name: NuGet login (OIDC → temp API key)
@@ -59,4 +59,4 @@ jobs:
       # Push the package
       - name: NuGet push
         if: ${{ steps.release.outputs.release_created }}
-        run: dotnet nuget push src/WateryTart.MusicAssistant/bin/Release/WateryTart.MusicAssistant.${{ steps.release.outputs.version }}.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push src/SillyMIDI.MusicAssistant/bin/Release/SillyMIDI.MusicAssistant.${{ steps.release.outputs.version }}.nupkg --api-key ${{steps.login.outputs.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json

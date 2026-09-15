@@ -1,6 +1,6 @@
 ```csharp
-using WateryTart.MusicAssistant;
-using WateryTart.MusicAssistant.WebSocketExtensions;
+using SillyMIDI.MusicAssistant;
+using SillyMIDI.MusicAssistant.WebSocketExtensions;
 
 WsClient _wsClient = new WsClient();
 LoginResults credentials = await _wsClient.Login("username", "password^^", "musicassistantserver:8095");

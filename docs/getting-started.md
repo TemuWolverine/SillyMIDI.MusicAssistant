@@ -9,6 +9,6 @@ The WebSocket API is a bi-directional, real time API which adds in events pushed
 Both APIs use the same underlying credentials, so they can be mixed and matched where approapriate. For example, you could use the WebSocket API for your main application, and then use the RPC API for a one off call from a script.
 
 # API Coverage
-Currently, WateryTart.MusicAssistant does not have 100% coverage of the Music Assistant API, but it is at the epoint where it is usable for a client program to provide most functionality.
+Currently, SillyMIDI.MusicAssistant does not have 100% coverage of the Music Assistant API, but it is at the epoint where it is usable for a client program to provide most functionality.
 
 Any admin-marked API calls are not the focus of this library, so are lowest priority for implementation. If you need an admin API call, please open an issue or submit a PR.

@@ -1,6 +1,6 @@
 ```csharp
-using WateryTart.MusicAssistant;
-using WateryTart.MusicAssistant.RPCExtensions;
+using SillyMIDI.MusicAssistant;
+using SillyMIDI.MusicAssistant.RPCExtensions;
 
 RpcClient _rpcClient = new RpcClient("http://musicassistantserver:8095/api");
 IMusicAssistantCredentials credentials = await _rpcClient.LoginAsync("username", "password");
