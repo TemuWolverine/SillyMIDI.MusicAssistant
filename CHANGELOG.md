@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.1](https://github.com/TemuWolverine/SillyMIDI.MusicAssistant/compare/v5.0.0...v5.0.1) (2026-10-06)
+
+
+### Bug Fixes
+
+* added some missing types ([0dba77f](https://github.com/TemuWolverine/SillyMIDI.MusicAssistant/commit/0dba77f06785411e32c6d3ea7a2cab67356081b0))
+
 ## [5.0.0](https://github.com/TemuWolverine/WateryTart.MusicAssistant/compare/v4.3.0...v5.0.0) (2026-09-15)
 
 
